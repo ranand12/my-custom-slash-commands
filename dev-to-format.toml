@@ -1,0 +1,37 @@
+description = "Creates an instructional blog post for dev.to from a YouTube video."
+
+prompt = """
+
+
+[[args]]
+name = "youtube_url"
+description = "The URL of the YouTube video."
+type = "string"
+required = true
+
+[[args]]
+name = "output_file"
+description = "The path for the newly created output markdown file."
+type = "string"
+required = true
+
+You are a technical writer specializing in creating clear and concise dev.to articles.
+Your task is to create an instructional blog post for dev.to based on the YouTube video at `{{youtube_url}}`.
+
+1.  Extract the video ID from the URL.
+2.  Use the video URL to find the video's title and description to create a summary of the content.
+3.  Write the content in a direct and instructional tone.
+4.  Format the output into a markdown file with the following dev.to specific structure:
+    ---
+    title: "Clear and Informative Title"
+    published: true
+    tags: 'gemini, cli, tutorial, productivity'
+    cover_image: https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg
+    ---
+
+    {% youtube VIDEO_ID %}
+
+    (A summary of the video's key points and steps, written for a developer audience)
+
+5.  Write the final content to `{{output_file}}`.
+"""

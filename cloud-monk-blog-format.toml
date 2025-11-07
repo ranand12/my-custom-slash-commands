@@ -1,0 +1,48 @@
+name = "create-instructional-blog"
+description = "Creates a straightforward, instructional blog post from a YouTube video."
+author = "Gemini"
+
+[[args]]
+name = "youtube_url"
+description = "The URL of the YouTube video."
+type = "string"
+required = true
+
+[[args]]
+name = "output_file"
+description = "The path for the newly created output markdown file."
+type = "string"
+required = true
+
+prompt = """
+You are a technical writer.
+Your task is to create a simple and instructional blog post based on the YouTube video at `{{youtube_url}}`.
+
+1.  Extract the video ID from the URL.
+2.  Use the video's title and description to create instructional content.
+3.  Write the content in a clear and direct tone.
+4.  Format the output into a markdown file with the following structure:
+    ---
+    title: "Instructional Title"
+    description: "A clear and concise description of the video content."
+    categories:
+      - videos
+      - tutorial
+    layout: single
+    excerpt: "A direct summary of the video's purpose."
+    header:
+      overlay_color: "#333"
+    link: "{{youtube_url}}"
+    permalink: "videos/your-permalink"
+    header:
+      og_image: "https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg"
+      teaser: "https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg"
+      overlay_color: "#333"
+    ---
+
+    {% include video id="VIDEO_ID" provider="youtube" %}
+
+    (Your clear, instructional blog content here, using bullet points and steps to summarize the video.)
+
+5.  Write the final content to `{{output_file}}`.
+"""
